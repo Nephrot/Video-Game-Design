@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!74 &7400000
+AnimationClip:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: LeftAttack
+  serializedVersion: 6
+  m_Legacy: 0
+  m_Compressed: 0
+  m_UseHighQualityCurve: 1
+  m_RotationCurves: []
+  m_CompressedRotationCurves: []
+  m_EulerCurves: []
+  m_PositionCurves: []
+  m_ScaleCurves: []
+  m_FloatCurves: []
+  m_PPtrCurves:
+  - curve:
+    - time: 0
+      value: {fileID: 21300000, guid: 0ef7f30f3b1c2064e9564f5bd84cc5af, type: 3}
+    - time: 0.12857144
+      value: {fileID: 21300000, guid: 567a87ffe5b5d69439dd68bc15378116, type: 3}
+    - time: 0.25714287
+      value: {fileID: 21300000, guid: f137043fc4c0f0748beff7a33e59fe89, type: 3}
+    - time: 0.4
+      value: {fileID: 21300000, guid: e9e7f48cfc1393a4888a1223a4d8697c, type: 3}
+    - time: 0.54285717
+      value: {fileID: 21300000, guid: 695612d39f8774d44a12799f5dd623d3, type: 3}
+    - time: 0.6857143
+      value: {fileID: 21300000, guid: 05da325a46032a342afec638cc44b18d, type: 3}
+    attribute: m_Sprite
+    path: 
+    classID: 212
+    script: {fileID: 0}
+  m_SampleRate: 70
+  m_WrapMode: 0
+  m_Bounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 0, y: 0, z: 0}
+  m_ClipBindingConstant:
+    genericBindings:
+    - serializedVersion: 2
+      path: 0
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
+    pptrCurveMapping:
+    - {fileID: 21300000, guid: 0ef7f30f3b1c2064e9564f5bd84cc5af, type: 3}
+    - {fileID: 21300000, guid: 567a87ffe5b5d69439dd68bc15378116, type: 3}
+    - {fileID: 21300000, guid: f137043fc4c0f0748beff7a33e59fe89, type: 3}
+    - {fileID: 21300000, guid: e9e7f48cfc1393a4888a1223a4d8697c, type: 3}
+    - {fileID: 21300000, guid: 695612d39f8774d44a12799f5dd623d3, type: 3}
+    - {fileID: 21300000, guid: 05da325a46032a342afec638cc44b18d, type: 3}
+  m_AnimationClipSettings:
+    serializedVersion: 2
+    m_AdditiveReferencePoseClip: {fileID: 0}
+    m_AdditiveReferencePoseTime: 0
+    m_StartTime: 0
+    m_StopTime: 0.70000005
+    m_OrientationOffsetY: 0
+    m_Level: 0
+    m_CycleOffset: 0
+    m_HasAdditiveReferencePose: 0
+    m_LoopTime: 1
+    m_LoopBlend: 0
+    m_LoopBlendOrientation: 0
+    m_LoopBlendPositionY: 0
+    m_LoopBlendPositionXZ: 0
+    m_KeepOriginalOrientation: 0
+    m_KeepOriginalPositionY: 1
+    m_KeepOriginalPositionXZ: 0
+    m_HeightFromFeet: 0
+    m_Mirror: 0
+  m_EditorCurves: []
+  m_EulerEditorCurves: []
+  m_HasGenericRootTransform: 0
+  m_HasMotionFloatCurves: 0
+  m_GenerateMotionCurves: 0
+  m_Events: []
