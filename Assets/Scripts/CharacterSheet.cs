@@ -24,8 +24,8 @@ int ButtonCount = 0;
    void Move() {
     movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0.0f);
     rb.velocity = new Vector2(Input.GetAxis("Horizontal") * moveSpeed, Input.GetAxis("Vertical") * moveSpeed);
-    mouseMovement = new Vector3(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"), 0.0f);
-    if(Input.GetMouseButton(0) && (movement.x != 0 || movement.y != 0)) {
+    mouseMovement = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (Input.GetMouseButton(0) && (movement.x != 0 || movement.y != 0)) {
       SwitchAnimation("Attack Walk Layer");
       if((mouseMovement.x >= sensitivity || mouseMovement.x <= -(sensitivity)) || (mouseMovement.y >= sensitivity || mouseMovement.y <= -(sensitivity))) {
       animator.SetFloat("HorizontalMouse", mouseMovement.x);
