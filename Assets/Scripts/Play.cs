@@ -27,7 +27,7 @@ public class Play : MonoBehaviour {
 	}
 	public void changeScene() {
 		timer = 0f;
-		wait = 1.2f;
+		wait = 3f;
 		startTimer = true;
 		contentObject.SetActive(true);
 	    content.fillAmount = 0f;

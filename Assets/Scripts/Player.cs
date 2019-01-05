@@ -56,6 +56,7 @@ public class Player : MonoBehaviour {
 	bool isTap2 = false;
 	bool isTap3 = false;
 	bool isTap4 = false;
+	private bool isOpen = false;
 	void Start () {
 		health.createStat (healthValue, maxHealth);
 		mana.createStat (manaValue, maxMana);
@@ -77,6 +78,18 @@ public class Player : MonoBehaviour {
 		}
 		if (Input.GetKeyDown (KeyCode.O)) {
 			health.CurrentValue += 10;
+		}
+		if (Input.GetKeyDown (KeyCode.T)) {
+			print("T");
+			print(isOpen);
+			if(!isOpen) {
+				InventoryManager.INSTANCE.openContainer(new PlayerContainer(null, null));
+				isOpen = true;
+			}
+			else {
+				InventoryManager.INSTANCE.closeContainer();
+				isOpen = false;
+			}
 		}
 		if (Input.GetKeyDown (KeyCode.Alpha1)) {
 

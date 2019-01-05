@@ -44,9 +44,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Middle
+    uniqueID: 3576443227
+    locked: 0
+  - name: Explosion
+    uniqueID: 1747460045
+    locked: 0
   - name: InFrontOfScene
     uniqueID: 2532278913
     locked: 0
   - name: Character
     uniqueID: 3871939235
+    locked: 0
+  - name: AboveCharacter
+    uniqueID: 2562789947
     locked: 0
