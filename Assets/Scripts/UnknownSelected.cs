@@ -16,11 +16,14 @@
 	[SerializeField]
 	GameObject chatbox;
 	bool pressed = false;
+	[SerializeField] BoxCollider2D boxCollider;
 	void Start() {
 		chatbox.SetActive(false);
 	}
  	void Update () {
  		timer += Time.deltaTime;
+		var sprite = GetComponent<SpriteRenderer>();
+        sprite.sortingOrder = Mathf.RoundToInt(transform.position.y * -10f);
 		 
  	}
  	void OnMouseOver () {
@@ -46,6 +49,7 @@
 		 CutsceneTutorial.timer = 10f;
 		 CutsceneTutorial.stopTimer = false;
 		 pressed = true;
+         Destroy( boxCollider);
 		 }
 	}
 

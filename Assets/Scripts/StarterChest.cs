@@ -9,31 +9,53 @@ public class StarterChest : MonoBehaviour {
      public Animator animator;
 	 [SerializeField]
 	 public GameObject objectChest;
+	 bool pressed = false;
+	 [SerializeField] Inventory inventory;
+	 [SerializeField] Item item1;
+	 [SerializeField] Item item2;
+	 [SerializeField] Item item3;
+	 [SerializeField] GameObject weapon;
+	 [SerializeField] GameObject potion;
+	 [SerializeField] GameObject tunic;
+
 	// Use this for initialization
 	void Start() {
-		objectChest.SetActive(false);
+		 weapon.SetActive(false);
+		   potion.SetActive(false);
+		   tunic.SetActive(false);
 	}
 	void Update() {
-		if(Input.GetKeyDown(KeyCode.Escape)) {
-			objectChest.SetActive(false);
-		}
 	}
 	void OnMouseOver () {
  		//click object multiple times to turn on or off. 
  		//if mouse is being clicked else where, then noting should happen.
+		 if(!pressed) {
  			SwitchAnimation ("Selected");
+		 }
  		
  	}
  	void OnMouseExit () {
  		//click object multiple times to turn on or off. 
  		//if mouse is being clicked else where, then noting should happen.
+ 		if(!pressed) {
  			SwitchAnimation ("Idle");
+		 }
  	}
 	
 	void OnMouseDown() {
 		
-		if (CutsceneTutorial.timer > 28f ) {
-           objectChest.SetActive(true);
+		if (CutsceneTutorial.timer > 30.4f && !pressed) {
+           SwitchAnimation ("Open");
+		   inventory.AddItem(item1);
+		   inventory.AddItem(item2);
+		   inventory.AddItem(item3);
+		   weapon.SetActive(true);
+		   potion.SetActive(true);
+		   tunic.SetActive(true);
+		   pressed = true;
+		   CutsceneTutorial.stopTimer = false;
+		   CutsceneTutorial.timer = 30.9f;
+		   CutsceneTutorial.option3 = 2;
 		}
 	}
 

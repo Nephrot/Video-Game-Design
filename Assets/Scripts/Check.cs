@@ -26,7 +26,17 @@ public class Check : MonoBehaviour {
 	[SerializeField]
 	Text stat;
 	[SerializeField]
+	Text health;
+	[SerializeField]
+	Text mana;
+	[SerializeField]
+	Text stamina;
+	[SerializeField]
 	public static string classOf = "something";
+	public static int health1 = 0;
+	public static int mana2 = 0;
+	public static int stamina3 = 0;
+	
 	// Update is called once per frame
 	void Start () {
 		nameError.SetActive(false);
@@ -44,6 +54,9 @@ public class Check : MonoBehaviour {
 			  else if(toggle3.isOn) {
 				  classOf = "hunter";
 			  }
+			  health1 = int.Parse(health.text);
+			  mana2 = int.Parse(mana.text);
+			  stamina3 = int.Parse(stamina.text);
 	  
 	}
 	public void check () {

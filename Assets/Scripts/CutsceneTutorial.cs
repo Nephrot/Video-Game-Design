@@ -9,6 +9,10 @@ public class CutsceneTutorial : MonoBehaviour {
 	// Use this for initialization
 	[SerializeField]
 	GameObject game;
+	[SerializeField]
+	Animation frozen1;
+	[SerializeField]
+	Animator frozen;
 	
 	[SerializeField]
 	GameObject explosion;
@@ -44,6 +48,7 @@ public class CutsceneTutorial : MonoBehaviour {
 	public static int option = 0;
 	public static bool resume = false;
 	public static float tipsTimer = 0;
+	public Collider2D colliders;
 	float tipsWait;
 	float distance;
 	[SerializeField]
@@ -51,24 +56,44 @@ public class CutsceneTutorial : MonoBehaviour {
 	[SerializeField]
 	Rigidbody2D colliderRb;
 	float tipsTimer2;
+	float tipsTimer3;
 	public Text header;
 	public Text tooltip;
 	int option2 = 1;
+	public static int option3 = 1;
+	public Collider2D resumeTut;
+	bool dummy = false;
 	bool summon;
+	 [SerializeField] GameObject weapon;
+	 [SerializeField] GameObject potion;
+	 [SerializeField] GameObject tunic;
+	 [SerializeField] GameObject person;
+	 [SerializeField] GameObject Lich;
+	 [SerializeField] GameObject Person;
+	 public GameObject blockingCollider1;
+	  public GameObject blockingCollider2;
 	void Start () {
       image3.SetActive(false);
 	  explosion.SetActive(false);
+	  Lich.SetActive(false);
+	  frozen.enabled = false;
+	  blockingCollider2.SetActive(false);
 	}
 	
 	
 	// Update is called once per frame
 	void Update () {
+		// print(timer);
+		// print(stopTimer);
 		if(!stopTimer) {
 		timer += Time.deltaTime;
 		}
 		tipsTimer += Time.deltaTime;
 		if(option2 == 2) {
 		tipsTimer2 += Time.deltaTime;
+		}
+		if(option3 == 2) {
+		tipsTimer3 += Time.deltaTime;
 		}
 		if(timer < 1.5f) {
 		  	rb.velocity = new Vector2(0, 3);
@@ -93,8 +118,8 @@ public class CutsceneTutorial : MonoBehaviour {
 		else if(timer > 14f && timer < 15f) {
             image2.SetActive(false);
 			chat1.text = "-) Who are you?";
-			chat2.text = "-) Get me out of here now!";
-			chat3.text = "-) I don't have to listen to the likes of you.";
+			chat2.text = "-) I've got a competition to get to!";
+			chat3.text = "-) I don't have to listen to you!";
 			chat4.text = "-) How can I repay you.";
 			image3.SetActive(true);
 			stopTimer = true;
@@ -128,15 +153,62 @@ public class CutsceneTutorial : MonoBehaviour {
             image2.SetActive(true);
 		}
 		else if(timer > 28 && timer < 30) {
-			chat.text = "Unknown: I'll be back I need to handle the other guards, deal with the ones here they've been corrupted by Jormungandr.";
+			chat.text = "Unknown: I'll be back I need to go protect the other competitions, deal with the Lich's here they've been corrupted by Hel.";
 		}
 		else if(timer > 30 && timer < 30.4) {
 			SwitchAnimation("Smoke Bomb");
+			
 		}
-		else if(timer > 30.4 && timer < 32) {
+		else if(timer > 30.4 && timer < 30.5) {
 			unknown.SetActive(false);
-		    image2.SetActive(false);
+		    image2.SetActive(false);		
 		}
+		else if(timer > 30.5 && timer < 30.8) {
+			stopTimer= true;
+		}
+		else if(timer > 30.8 && timer < 32) {
+			
+			weapon.transform.position = new Vector3(weapon.transform.position.x, weapon.transform.position.y+0.005f, weapon.transform.position.z);
+			tunic.transform.position = new Vector3(tunic.transform.position.x, tunic.transform.position.y+0.005f, tunic.transform.position.z);
+			potion.transform.position = new Vector3(potion.transform.position.x, potion.transform.position.y+0.005f, potion.transform.position.z);
+		}
+		else if(timer > 32 && timer < 32.4) {
+			weapon.SetActive(false);
+			tunic.SetActive(false);
+			potion.SetActive(false);
+			stopTimer = true;	
+            blockingCollider1.SetActive(false);
+		}
+		else if(timer > 32.5 && timer < 34.5) {
+			resumeTut.isTrigger = false;
+			FollowPlayer.stopFocus = true;
+			transform.position = new Vector3(9.36f, -17.66f, -10.0f);
+			chat.text = "Lich: You in time will serve Hel, as will this everyone here!";
+            image2.SetActive(true);	
+			blockingCollider2.SetActive(true);
+			Starter.move = false;
+			if(dummy == false) {
+			person.transform.position = new Vector2(1.24f, -18.7f+2f);
+			}
+			dummy = true;
+		}
+		else if(timer > 35.5 && timer < 36.5) {
+			frozen.enabled = true;
+			SwitchAnimationFrozen("Frozen");
+		}
+		else if(timer > 36.5 && timer < 37.5) {
+			FollowPlayer.stopFocus = false;
+			Lich.SetActive(true);
+			Person.SetActive(false);
+			image2.SetActive(false);
+			Starter.move = true;
+		}
+         colliders = Physics2D.OverlapCircle(person.transform.position, 0.0f);
+         if (colliders == resumeTut)
+         {
+             stopTimer = false;
+			 timer = 32.5f;
+		 }
 		if(timer > 23.8 && timer < 24 && distance > -1) {
 			timer = 25f;
 			stopTimer = false;
@@ -154,7 +226,7 @@ public class CutsceneTutorial : MonoBehaviour {
 		}
 		if(option == 1) {
 			image3.SetActive(false);
-			chat.text = "Unknown: Not yet... Not here son. Just come with me.";
+			chat.text = "Unknown: Not yet... Not here son. We have a competion to save.";
             image2.SetActive(true);
 			timer = 16f;
 			stopTimer= false;
@@ -162,7 +234,7 @@ public class CutsceneTutorial : MonoBehaviour {
 		}
 		else if(option == 2 || option == 3) {
 			image3.SetActive(false);
-			chat.text = "Unknown: Prison's changed you, hmm, I can deal with it I guess just don't test me.";
+			chat.text = "Unknown: I know where you came from, the fate of this competition is in your hands.";
             image2.SetActive(true);
 			timer = 16f;
 			stopTimer= false;
@@ -170,7 +242,7 @@ public class CutsceneTutorial : MonoBehaviour {
 		}
 		else if(option == 4) {
 			image3.SetActive(false);
-			chat.text = "Unknown: You just have to come with me son, no strings attached.";
+			chat.text = "Unknown: You just have to come with me son, we have a competition to save.";
 			image2.SetActive(true);
 			timer = 16f;
 			stopTimer= false;
@@ -194,6 +266,14 @@ public class CutsceneTutorial : MonoBehaviour {
 			option2 = 2;
 			image.transform.position = new Vector3(image.transform.position.x+5, image.transform.position.y, image.transform.position.z);
 		}
+		if(tipsTimer3 > 0f && tipsTimer3 < 2.3f ) {	
+			header.text = "Inventory";
+			tooltip.text = "To equip items and check your stats you will need to open your inventory using the I button. ";
+			image.transform.position = new Vector3(image.transform.position.x-5, image.transform.position.y, image.transform.position.z);
+		}
+		else if(tipsTimer3 > 6f && tipsTimer3 < 8.3f ) {	
+			image.transform.position = new Vector3(image.transform.position.x+5, image.transform.position.y, image.transform.position.z);
+		}
 	}
 	void SwitchAnimation(string layer) {
      for (int i = 0; i < animator.layerCount; i++)
@@ -202,6 +282,14 @@ public class CutsceneTutorial : MonoBehaviour {
      }
 
      animator.SetLayerWeight(animator.GetLayerIndex(layer), 1);
+   }
+   void SwitchAnimationFrozen(string layer) {
+     for (int i = 0; i < frozen.layerCount; i++)
+     {
+         frozen.SetLayerWeight(i, 0);
+     }
+
+     frozen.SetLayerWeight(frozen.GetLayerIndex(layer), 1);
    }
     public void choose1 () {
 	    option = 1;

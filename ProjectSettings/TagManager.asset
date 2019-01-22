@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Item Database
   layers:
   - Default
   - TransparentFX
@@ -47,15 +48,24 @@ TagManager:
   - name: Middle
     uniqueID: 3576443227
     locked: 0
+  - name: Wall
+    uniqueID: 3825376373
+    locked: 0
   - name: Explosion
     uniqueID: 1747460045
     locked: 0
   - name: InFrontOfScene
     uniqueID: 2532278913
     locked: 0
+  - name: InFrontOfScene2
+    uniqueID: 3532800111
+    locked: 0
   - name: Character
     uniqueID: 3871939235
     locked: 0
   - name: AboveCharacter
     uniqueID: 2562789947
+    locked: 0
+  - name: 2ndAboveCharacter
+    uniqueID: 991303329
     locked: 0

@@ -79,18 +79,6 @@ public class Player : MonoBehaviour {
 		if (Input.GetKeyDown (KeyCode.O)) {
 			health.CurrentValue += 10;
 		}
-		if (Input.GetKeyDown (KeyCode.T)) {
-			print("T");
-			print(isOpen);
-			if(!isOpen) {
-				InventoryManager.INSTANCE.openContainer(new PlayerContainer(null, null));
-				isOpen = true;
-			}
-			else {
-				InventoryManager.INSTANCE.closeContainer();
-				isOpen = false;
-			}
-		}
 		if (Input.GetKeyDown (KeyCode.Alpha1)) {
 
 			if (mana.currentValue >= 40 && secondTimer > fireballLasts) {
