@@ -12,7 +12,7 @@ public class Player : MonoBehaviour {
 	public Rigidbody2D personrb;
 	[SerializeField]
 	private Stats health;
-	private float healthValue = 100;
+	public  float healthValue = 100;
 	private float maxHealth = 100;
 	[SerializeField]
 	private Stats mana;

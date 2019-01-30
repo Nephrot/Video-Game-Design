@@ -60,6 +60,9 @@ TagManager:
   - name: InFrontOfScene2
     uniqueID: 3532800111
     locked: 0
+  - name: Dash
+    uniqueID: 1123402171
+    locked: 0
   - name: Character
     uniqueID: 3871939235
     locked: 0

@@ -17,6 +17,7 @@ public class InventoryInput : MonoBehaviour
 
 	private void ToggleCharacterPanel()
 	{
+	 if(!Starter.terminal) {
 		for (int i = 0; i < toggleCharacterPanelKeys.Length; i++)
 		{
 			if (Input.GetKeyDown(toggleCharacterPanelKeys[i]))
@@ -37,10 +38,12 @@ public class InventoryInput : MonoBehaviour
 				break;
 			}
 		}
+	  }
 	}
 
 	private void ToggleInventory()
 	{
+	 if(!Starter.terminal) {
 		for (int i = 0; i < toggleInventoryKeys.Length; i++)
 		{
 			if (Input.GetKeyDown(toggleInventoryKeys[i]))
@@ -60,7 +63,8 @@ public class InventoryInput : MonoBehaviour
 				}
 				break;
 			}
-		}
+		 }
+	  }
 	}
 
 	public void ShowMouseCursor()

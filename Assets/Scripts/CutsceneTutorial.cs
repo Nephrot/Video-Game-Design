@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class CutsceneTutorial : MonoBehaviour {
 
 	// Use this for initialization
+	public GameObject gamesCutscene;
 	[SerializeField]
 	GameObject game;
 	[SerializeField]
@@ -23,6 +24,7 @@ public class CutsceneTutorial : MonoBehaviour {
 	[SerializeField]
 	public static float timer = 0;
 	float wait;
+	public Animator animatorUnknown;
 	public static bool stopTimer = false;
 	[SerializeField]
 	GameObject image;
@@ -45,6 +47,8 @@ public class CutsceneTutorial : MonoBehaviour {
 	GameObject player;
 	[SerializeField]
 	GameObject unknown;
+    
+	Collider2D dummy2;
 	public static int option = 0;
 	public static bool resume = false;
 	public static float tipsTimer = 0;
@@ -55,8 +59,11 @@ public class CutsceneTutorial : MonoBehaviour {
 	BoxCollider2D colliderWall;
 	[SerializeField]
 	Rigidbody2D colliderRb;
+	public static float musicTimer;
 	float tipsTimer2;
 	float tipsTimer3;
+	float tipsTimer4;
+	float tipsTimer5;
 	public Text header;
 	public Text tooltip;
 	int option2 = 1;
@@ -72,12 +79,33 @@ public class CutsceneTutorial : MonoBehaviour {
 	 [SerializeField] GameObject Person;
 	 public GameObject blockingCollider1;
 	  public GameObject blockingCollider2;
+	  public GameObject stopCollider;
+	  bool timer4bool = false;
+	    bool timer5bool = false;
+		public bool brokeWall;
+
+	  public GameObject unknown2;
+
+	  public Collider2D collider3;
+	  
+	  public InputField terminal1;
+	  public InputField terminal2;
+	  public InputField terminal3;
+	  public InputField terminal4;
+
+     [SerializeField]
+	  public GameObject fixedWall;
+	      [SerializeField]
+	  public GameObject brokenGame;
+	  public static float timerCounter;
 	void Start () {
       image3.SetActive(false);
 	  explosion.SetActive(false);
 	  Lich.SetActive(false);
 	  frozen.enabled = false;
 	  blockingCollider2.SetActive(false);
+	  unknown2.SetActive(false);
+	  fixedWall.SetActive(false);
 	}
 	
 	
@@ -85,6 +113,8 @@ public class CutsceneTutorial : MonoBehaviour {
 	void Update () {
 		// print(timer);
 		// print(stopTimer);
+        timerCounter += Time.deltaTime;
+		musicTimer += Time.deltaTime;
 		if(!stopTimer) {
 		timer += Time.deltaTime;
 		}
@@ -95,6 +125,12 @@ public class CutsceneTutorial : MonoBehaviour {
 		if(option3 == 2) {
 		tipsTimer3 += Time.deltaTime;
 		}
+		if(timer4bool == true) {
+		tipsTimer4 += Time.deltaTime;
+		}
+		if(timer5bool == true) {
+		tipsTimer5 += Time.deltaTime;
+		}
 		if(timer < 1.5f) {
 		  	rb.velocity = new Vector2(0, 3);
 			  SwitchAnimation("Forward");
@@ -104,7 +140,7 @@ public class CutsceneTutorial : MonoBehaviour {
 			SwitchAnimation("Left");
 		}
 		else if(timer > 1.7f && timer < 1.8f) {
-           rb.velocity = new Vector2(0, 0);
+            rb.velocity = new Vector2(0, 0);
 			SwitchAnimation("Idle");
 		}
 		else if( timer < 9.3f && timer > 1.8f) {
@@ -153,7 +189,7 @@ public class CutsceneTutorial : MonoBehaviour {
             image2.SetActive(true);
 		}
 		else if(timer > 28 && timer < 30) {
-			chat.text = "Unknown: I'll be back I need to go protect the other competitions, deal with the Lich's here they've been corrupted by Hel.";
+			chat.text = "Unknown: I'll be back, deal with the Lich's here they've been corrupted by the game.";
 		}
 		else if(timer > 30 && timer < 30.4) {
 			SwitchAnimation("Smoke Bomb");
@@ -196,12 +232,89 @@ public class CutsceneTutorial : MonoBehaviour {
 			frozen.enabled = true;
 			SwitchAnimationFrozen("Frozen");
 		}
-		else if(timer > 36.5 && timer < 37.5) {
+		else if(timer > 36.5 && timer < 37.2) {
 			FollowPlayer.stopFocus = false;
 			Lich.SetActive(true);
 			Person.SetActive(false);
 			image2.SetActive(false);
 			Starter.move = true;
+			stopCollider.SetActive(false);
+			timer4bool = true;
+			
+		}
+		else if(timer > 37.2 && timer < 37.9) {
+			stopTimer = true;
+		}
+		else if(timer > 38 && timer < 38.5) {
+			gamesCutscene.SetActive(false);
+		    unknown2.SetActive(true);
+			SwitchUnknownAnimation("Smoke Bomb");
+		}
+		else if(timer > 38.5 && timer < 42) {
+			chat.text = "Unknown: I am back... missed me right, anyways looks like a glitch.";
+            image2.SetActive(true);	
+			SwitchUnknownAnimation("Idle");
+			
+		}
+		else if(timer > 42 && timer < 46) {
+             chat.text = "Unknown: We can fix this with the terminal, a few parts I fastened up.";
+		}
+		else if(timer > 46 && timer < 50) {
+			chat.text = "Unknown: This isn't your regular computer, it changes the very game your in.";
+		}
+		else if(timer > 50 && timer < 54) {
+			chat.text = "Unknown: We use it as a weapon against him, techology above his control";
+		}
+		else if(timer > 54 && timer < 58) {
+			chat.text= "Unknown: The prophet told me you would be the one to liberate us and so here.";
+		}
+		else if(timer > 58 && timer < 60) {
+			chat.text = "Unknown: Use it.";
+			timer5bool = true;
+		}
+		else if(timer > 60 && timer < 66) {
+			image2.SetActive(false);
+			chat1.text = "-) I need answers now!";
+			chat2.text = "-) States are today, help me get out of here!";
+			chat3.text = "-) ...";
+			chat4.text = "-) Looks interesting, how do I use it.";
+			image3.SetActive(true);
+
+		}
+		else if(timer > 70 && timer < 74) {
+
+		}
+		else if(timer > 74 && timer < 78) {
+		 chat.text= "Unknown: To start off create a variable, look in your journal.";
+		}
+
+        if(Input.GetKeyDown(KeyCode.Alpha1)) {
+			print("Works");
+           if(terminal4.text == "}" && terminal1.text.Substring(0, 4) == "Wall" && terminal1.text.Substring(terminal1.text.Length - 13) == "= new Wall();"
+		   && terminal2.text == "void Start() {" && terminal3.text == (terminal1.text.Substring(5,terminal1.text.Length - 19) + ".destroy();")) {
+               chat.text = "Unknown: You did it, we have to go we have to get that leap report, follow me";
+			   fixedWall.SetActive(true);
+			   brokenGame.SetActive(false);
+		   }
+		   else if(terminal4.text != "}") {
+			   chat.text = "Unknown: Did you add a break system correctly, use //nC; (}) //";
+		   }
+		   else if(terminal1.text.Substring(0, 4) != "Wall" || terminal1.text.Substring(terminal1.text.Length - 13) != "= new Wall();") {
+			   chat.text = "Unknown: Wall isn't defined correctly, the object is Wall";
+			   print(terminal1.text.Substring(terminal1.text.Length - 13));
+		   }
+		   else if(terminal2.text != "void Start() {") {
+               chat.text = "Unknown: Your start menthod isnt defined correctly, n// C/. (void Start() {) //";
+		   }
+		   else if(terminal3.text != (terminal1.text.Substring(5,terminal1.text.Length - 19) + ".destroy();")) {
+			   chat.text = "Unknown: .destroy() method is defined incorrectly";
+			   print((terminal1.text.Substring(5,terminal1.text.Length - 19) + ".destroy();"));
+			   print(terminal1.text.Length - 18);
+		   }
+		   else {
+			   chat.text = "Unknown: What have you done nothing here is right";
+		   }
+		   print(timer);
 		}
          colliders = Physics2D.OverlapCircle(person.transform.position, 0.0f);
          if (colliders == resumeTut)
@@ -209,6 +322,12 @@ public class CutsceneTutorial : MonoBehaviour {
              stopTimer = false;
 			 timer = 32.5f;
 		 }
+          if (colliders == collider3)
+         {
+             stopTimer = false;
+			 timer = 38f;
+		 }
+
 		if(timer > 23.8 && timer < 24 && distance > -1) {
 			timer = 25f;
 			stopTimer = false;
@@ -216,7 +335,6 @@ public class CutsceneTutorial : MonoBehaviour {
         if(timer > 20.4f && timer < 23.5 && stopTimer == true ) {
 			distance = (player.transform.position.x - unknown.transform.position.x);
 			summon = true;
-			
             if(distance < -5) {
 				timer = 23.6f;
 				stopTimer = false;
@@ -224,7 +342,7 @@ public class CutsceneTutorial : MonoBehaviour {
 				Destroy (colliderRb);
 			}
 		}
-		if(option == 1) {
+		if(option == 1 && timer < 15) {
 			image3.SetActive(false);
 			chat.text = "Unknown: Not yet... Not here son. We have a competion to save.";
             image2.SetActive(true);
@@ -232,21 +350,55 @@ public class CutsceneTutorial : MonoBehaviour {
 			stopTimer= false;
 			option = 0;
 		}
-		else if(option == 2 || option == 3) {
+		else if((option == 2 || option == 3) && timer < 15) {
 			image3.SetActive(false);
 			chat.text = "Unknown: I know where you came from, the fate of this competition is in your hands.";
             image2.SetActive(true);
 			timer = 16f;
 			stopTimer= false;
 			option = 0;
+
 		}
-		else if(option == 4) {
+		else if(option == 4 && timer < 15) {
 			image3.SetActive(false);
 			chat.text = "Unknown: You just have to come with me son, we have a competition to save.";
 			image2.SetActive(true);
 			timer = 16f;
 			stopTimer= false;
+		 	option = 0;
+			
+		}
+		else if(option == 1) {
+			image3.SetActive(false);
+			chat.text = "Unknown: We are stuck in the game you created for the competition, I'll explain it later";
+			image2.SetActive(true);
 			option = 0;
+			timer = 70;
+			stopTimer = false;
+		}
+		else if(option == 2) {
+			image3.SetActive(false);
+			chat.text = "Unknown: You can only help yourself son, you have to get out of this game";
+			image2.SetActive(true);
+			option = 0;
+			timer = 70;
+			stopTimer = false;
+		}
+		else if(option == 3) {
+			image3.SetActive(false);
+			chat.text = "Unknown: And to think you were so talkative earlier, hmm";
+			image2.SetActive(true);
+			option = 0;
+			timer = 70;
+			stopTimer = false;
+		}
+		else if(option == 4) {
+			image3.SetActive(false);
+			chat.text = "C://tsa//helpme.csv: Pre-s, the, T, but0hn";
+			image2.SetActive(true);
+			option = 0;
+			timer = 70;
+			stopTimer = false;
 		}
 	    if(tipsTimer < 4f && tipsTimer > 1.7f) {	
 			image.transform.position = new Vector3(image.transform.position.x-5, image.transform.position.y, image.transform.position.z);
@@ -274,14 +426,54 @@ public class CutsceneTutorial : MonoBehaviour {
 		else if(tipsTimer3 > 6f && tipsTimer3 < 8.3f ) {	
 			image.transform.position = new Vector3(image.transform.position.x+5, image.transform.position.y, image.transform.position.z);
 		}
+		if(tipsTimer4 > 0f && tipsTimer4 < 2.3f ) {	
+			header.text = "Attack";
+			tooltip.text = "To attack targets hold the crosshair on the enemy, make sure the sword is equipped.";
+			image.transform.position = new Vector3(image.transform.position.x-5, image.transform.position.y, image.transform.position.z);
+		}
+		else if(tipsTimer4 > 6f && tipsTimer4 < 8.3f ) {	
+			image.transform.position = new Vector3(image.transform.position.x+5, image.transform.position.y, image.transform.position.z);
+		}
+		if(tipsTimer4 > 10f && tipsTimer4 < 12.3f ) {	
+			header.text = "Dash";
+			tooltip.text = "To evade press space in the direction you wish to dash to.";
+			image.transform.position = new Vector3(image.transform.position.x-5, image.transform.position.y, image.transform.position.z);
+		}
+		else if(tipsTimer4 > 16f && tipsTimer4 < 18.3f ) {	
+			image.transform.position = new Vector3(image.transform.position.x+5, image.transform.position.y, image.transform.position.z);
+		}
+		if(tipsTimer5 > 0f && tipsTimer5 < 2.3f ) {	
+			header.text = "Terminal";
+			tooltip.text = "Press T to open the terminal and start messing with the game's base code.";
+			image.transform.position = new Vector3(image.transform.position.x-5, image.transform.position.y, image.transform.position.z);
+		}
+		else if(tipsTimer5 > 6f && tipsTimer5 < 8.3f ) {	
+			image.transform.position = new Vector3(image.transform.position.x+5, image.transform.position.y, image.transform.position.z);
+		}
+		if(tipsTimer5 > 10f && tipsTimer5 < 12.3f ) {	
+			header.text = "Journal";
+			tooltip.text = "Press J to look in your journal for helpful notes about the terminal.";
+			image.transform.position = new Vector3(image.transform.position.x-5, image.transform.position.y, image.transform.position.z);
+		}
+		else if(tipsTimer5 > 16f && tipsTimer5 < 18.3f ) {	
+			image.transform.position = new Vector3(image.transform.position.x+5, image.transform.position.y, image.transform.position.z);
+		}
 	}
 	void SwitchAnimation(string layer) {
      for (int i = 0; i < animator.layerCount; i++)
      {
          animator.SetLayerWeight(i, 0);
+		 animatorUnknown.SetLayerWeight(i, 0);
      }
-
+     animatorUnknown.SetLayerWeight(animatorUnknown.GetLayerIndex(layer), 1);
      animator.SetLayerWeight(animator.GetLayerIndex(layer), 1);
+   }
+   void SwitchUnknownAnimation(string layer) {
+	 for (int i = 0; i < animatorUnknown.layerCount; i++)
+     {
+		 animatorUnknown.SetLayerWeight(i, 0);
+     }
+     animatorUnknown.SetLayerWeight(animatorUnknown.GetLayerIndex(layer), 1);
    }
    void SwitchAnimationFrozen(string layer) {
      for (int i = 0; i < frozen.layerCount; i++)
