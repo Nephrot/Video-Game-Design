@@ -2,11 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;  
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+
 
 public class CutsceneTutorial : MonoBehaviour {
 
+    public static GameObject personHeld;
+	public static GameObject InventoryHeld;
+	public GameObject InventoryHolder;
+
+	public GameObject personHolder;
 	// Use this for initialization
+	public GameObject finishTutorial;
 	public GameObject gamesCutscene;
 	[SerializeField]
 	GameObject game;
@@ -98,6 +106,9 @@ public class CutsceneTutorial : MonoBehaviour {
 	      [SerializeField]
 	  public GameObject brokenGame;
 	  public static float timerCounter;
+     [SerializeField]
+	  GameObject Health;
+	  public static GameObject HealthHeld;
 	void Start () {
       image3.SetActive(false);
 	  explosion.SetActive(false);
@@ -106,6 +117,7 @@ public class CutsceneTutorial : MonoBehaviour {
 	  blockingCollider2.SetActive(false);
 	  unknown2.SetActive(false);
 	  fixedWall.SetActive(false);
+	//    finishTutorial.SetActive(false);
 	}
 	
 	
@@ -113,6 +125,9 @@ public class CutsceneTutorial : MonoBehaviour {
 	void Update () {
 		// print(timer);
 		// print(stopTimer);
+		personHeld = personHolder;
+		InventoryHeld = InventoryHolder;
+		HealthHeld = Health;
         timerCounter += Time.deltaTime;
 		musicTimer += Time.deltaTime;
 		if(!stopTimer) {
@@ -164,7 +179,7 @@ public class CutsceneTutorial : MonoBehaviour {
 			chat.text = "Unknown: It is probably best to get away from the door now or this is going to hurt.";
 			distance = (player.transform.position.x - unknown.transform.position.x);
             option2 = 2;
-            if(distance < -5) {
+            if(distance < -8) {
 				image2.SetActive(false);
 			}
 			SwitchAnimation("Right");
@@ -189,7 +204,7 @@ public class CutsceneTutorial : MonoBehaviour {
             image2.SetActive(true);
 		}
 		else if(timer > 28 && timer < 30) {
-			chat.text = "Unknown: I'll be back, deal with the Lich's here they've been corrupted by the game.";
+	     	chat.text = "Unknown: I'll be back, deal with the Lich's here they've been corrupted by the game.";
 		}
 		else if(timer > 30 && timer < 30.4) {
 			SwitchAnimation("Smoke Bomb");
@@ -288,13 +303,15 @@ public class CutsceneTutorial : MonoBehaviour {
 		 chat.text= "Unknown: To start off create a variable, look in your journal.";
 		}
 
-        if(Input.GetKeyDown(KeyCode.Alpha1)) {
+        if(Input.GetKeyDown(KeyCode.Return) && Starter.terminal) {
 			print("Works");
            if(terminal4.text == "}" && terminal1.text.Substring(0, 4) == "Wall" && terminal1.text.Substring(terminal1.text.Length - 13) == "= new Wall();"
 		   && terminal2.text == "void Start() {" && terminal3.text == (terminal1.text.Substring(5,terminal1.text.Length - 19) + ".destroy();")) {
                chat.text = "Unknown: You did it, we have to go we have to get that leap report, follow me";
 			   fixedWall.SetActive(true);
 			   brokenGame.SetActive(false);
+			   finishTutorial.SetActive(true);
+			   
 		   }
 		   else if(terminal4.text != "}") {
 			   chat.text = "Unknown: Did you add a break system correctly, use //nC; (}) //";
@@ -326,6 +343,11 @@ public class CutsceneTutorial : MonoBehaviour {
          {
              stopTimer = false;
 			 timer = 38f;
+		 }
+		 if (colliders == finishTutorial.GetComponentInChildren<BoxCollider2D>())  {
+			DontDestroyOnLoad(personHeld);
+			DontDestroyOnLoad(InventoryHeld);
+            SceneManager.LoadScene("Hel");
 		 }
 
 		if(timer > 23.8 && timer < 24 && distance > -1) {

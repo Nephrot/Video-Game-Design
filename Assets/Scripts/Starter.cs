@@ -43,6 +43,7 @@ public class Starter : MonoBehaviour {
   private Vector3 lastMoveDir;
   [SerializeField]
   public Stats health;
+
   public float healthValue = 100;
   private float maxHealth = 100;
   public static bool move = true;
@@ -60,6 +61,7 @@ public class Starter : MonoBehaviour {
   float time22;
   float time13;
   float time23;
+  public static bool pressEnter = false;
   float time14;
   float time24;
   float thirdTimer = 0.5f;
@@ -79,6 +81,8 @@ public class Starter : MonoBehaviour {
 
   public static bool terminal = false;
   public GameObject journal;
+
+  public static bool musicFollow =true;
   void Start () {
     health.createStat (100, 100);
     mana.createStat (100, 100);
@@ -89,11 +93,14 @@ public class Starter : MonoBehaviour {
       Input.mousePosition.y + 50, Camera.main.nearClipPlane));
     canvas.SetActive (false);
     journal.SetActive(false);
-
   }
   void Update () {
     Move ();
     GetInput ();
+    if(Input.GetKeyDown(KeyCode.Return)) {
+      pressEnter = true;
+    }
+    if(musicFollow)
     audioSource.transform.position = transform.position;
     if (!terminal) {
       if (Input.GetKeyDown (KeyCode.I)) {
@@ -107,6 +114,7 @@ public class Starter : MonoBehaviour {
       } else {
         CharacterPanel.SetActive (false);
       }
+      
     }
     if(!terminal && Input.GetKeyDown(KeyCode.J)) {
       journal.SetActive(!journal.activeSelf);
@@ -115,6 +123,10 @@ public class Starter : MonoBehaviour {
     sprite.sortingOrder = Mathf.RoundToInt (transform.position.y * -10f);
     regen ();
     HandleDash ();
+    if(CutsceneHel.terminalActive) {
+      canvas = CutsceneHel.terminalHeld;
+      journal = CutsceneHel.journalHeld;
+    }
   }
   // Update is called once per frame
 
@@ -190,7 +202,7 @@ public class Starter : MonoBehaviour {
   }
   void regen () {
     timer += Time.deltaTime;
-    if (timer > waitTime) {
+    if (timer > waitTime && !AiLich.dontCare) {
       timer = 0f;
       health.CurrentValue += 10;
       mana.CurrentValue += 10;

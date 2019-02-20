@@ -112,5 +112,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a452bd918d359024da61f6d21cc1ce01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 0}
-  damage: {fileID: 0}
+  animator: {fileID: 553814557844769310}
+  damage: {fileID: 6285254179889812216}
