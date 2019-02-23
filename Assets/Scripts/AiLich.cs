@@ -77,6 +77,7 @@
     public CutsceneHel cutsceneHel;
 
     public GameObject enemyObject;
+    public static bool bool2 = false;
     void Start () {
        currentPatrolIndex = 0;
        currentPatrolPoint = patrolPoints[currentPatrolIndex];
@@ -87,7 +88,8 @@
        }
     }
     void Update () {
-       if (switchCharacter) {
+       print(switchCharacter);
+       if (switchCharacter && bool2) {
           target = CutsceneTutorial.personHeld.transform;
           rbT = CutsceneTutorial.personHeld.GetComponentInChildren<Rigidbody2D> ();
        }
@@ -139,12 +141,13 @@
        sprite.sortingOrder = Mathf.RoundToInt (transform.position.y * -10f);
        if (distanceToTarget < 2) {
           if (timer2 > waitTime) {
-             if(switchCharacter == false) {
+             if(switchCharacter == true) {
+             healthPerson.CurrentValue -= 5;
+             }
+             else if(switchCharacter == false) {
              starter.health.CurrentValue -= 5;
              }
-             if(switchCharacter == true) {
-             cutsceneHel.healthValue.CurrentValue -= 5;
-             }
+             
              Vector3 moveDirection = transform.position - target.position;
              rbT.AddForce (moveDirection.normalized * -700f);
              timer2 = 0f;
@@ -209,17 +212,18 @@
 
        }
        if (timerAttack > 3 && timerAttack < 3.7 && isWarrior) {
-
+          GameObject warningHold = new GameObject();
           if (pressed == false) {
-             warning = Instantiate (warningPrefab);
-             warning.transform.position = new Vector2 (transform.position.x, transform.position.y + 2f);
+             warningHold = Instantiate (warningPrefab);
+           
              pressed = true;
           }
+           warningHold.transform.position = new Vector2(transform.position.x, transform.position.y + 2f);
          //  warning.transform.position = new Vector2 (transform.position.x, transform.position.y + 2f);
        }
        if (timerAttack > 3.7 && timerAttack < 4f) {
           pressed = false;
-         //  warning.transform.position = new Vector2 (transform.position.x, transform.position.y + 2f);
+         //  warningHold.transform.position = new Vector2(transform.position.x, transform.position.y + 2f);
        }
        if (timerAttack > 4f && timerAttack < 4.5f && isWarrior) {
           if (pressed == false) {

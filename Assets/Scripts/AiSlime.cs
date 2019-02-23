@@ -102,6 +102,22 @@
        counter++;
     }
     void Update () {
+       if (health <3 ) {
+          //  print(CutsceneHel.counter2);
+          counters.SetActive (false);
+          healthValue.CurrentValue -= 5;
+          death.transform.position = transform.position;
+          Instantiate (death);
+          Destroy (instantHealth);
+          death.transform.position = transform.position;
+          Destroy (gameObject);
+          if (audioThing.clip != idle) {
+             audioThing.clip = idle;
+             audioThing.Play ();
+          }
+        
+
+       }
         TimerKill += Time.deltaTime;
         TimerKill = 0;
         target = CutsceneTutorial.personHeld.transform;
@@ -219,22 +235,7 @@
        timer += Time.deltaTime;
        healthmenu.transform.position = new Vector2 (transform.position.x, transform.position.y + 1.7f);
 
-       if (health <= 0) {
-          //  print(CutsceneHel.counter2);
-          counters.SetActive (false);
-          healthValue.CurrentValue -= 5;
-          death.transform.position = transform.position;
-          Instantiate (death);
-          Destroy (instantHealth);
-          death.transform.position = transform.position;
-          Destroy (gameObject);
-          if (audioThing.clip != idle) {
-             audioThing.clip = idle;
-             audioThing.Play ();
-          }
-        
-
-       }
+       
     //    if (timerAttack > 3 && timerAttack < 3.7 && isWarrior) {
 
     //       if (pressed == false) {

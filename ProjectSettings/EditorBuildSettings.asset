@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Hel.unity
     guid: db051d43563317d4f86b9895850926fb
+  - enabled: 1
+    path: Assets/Scenes/Overworld.unity
+    guid: 9fdae7280c0c80341a2bd304299361db
   m_configObjects: {}

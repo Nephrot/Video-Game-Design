@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StarterChest : MonoBehaviour {
+public class TutorialChest : MonoBehaviour {
 
 
     [SerializeField]
      public Animator animator;
-	 [SerializeField]
-	 public GameObject objectChest;
 	 bool pressed = false;
 	 [SerializeField] Inventory inventory;
 	 [SerializeField] Item item1;
@@ -18,16 +16,13 @@ public class StarterChest : MonoBehaviour {
 	 [SerializeField] GameObject potion;
 	 [SerializeField] GameObject tunic;
 
-	 public static Inventory inventoryHeld;
-
 	// Use this for initialization
 	void Start() {
 		 weapon.SetActive(false);
 		   potion.SetActive(false);
-		   tunic.SetActive(false);
 	}
 	void Update() {
-		inventoryHeld = inventory;
+        print(pressed);
 	}
 	void OnMouseOver () {
  		//click object multiple times to turn on or off. 
@@ -46,19 +41,14 @@ public class StarterChest : MonoBehaviour {
  	}
 	
 	void OnMouseDown() {
-		
-		if (CutsceneTutorial.timer > 30.4f && !pressed) {
+
+		if(!pressed) {
+           pressed = true;
            SwitchAnimation ("Open");
-		   inventory.AddItem(item1);
-		   inventory.AddItem(item2);
-		   inventory.AddItem(item3);
-		   weapon.SetActive(true);
-		   potion.SetActive(true);
-		   tunic.SetActive(true);
-		   pressed = true;
-		   CutsceneTutorial.stopTimer = false;
-		   CutsceneTutorial.timer = 30.9f;
-		   CutsceneTutorial.option3 = 2;
+           StarterChest.inventoryHeld.AddItem(item1);
+           StarterChest.inventoryHeld.AddItem(item2);
+		//    inventory.AddItem(item2);
+           
 		}
 	}
 

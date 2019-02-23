@@ -117,7 +117,7 @@ public class CutsceneTutorial : MonoBehaviour {
 	  blockingCollider2.SetActive(false);
 	  unknown2.SetActive(false);
 	  fixedWall.SetActive(false);
-	//    finishTutorial.SetActive(false);
+	   finishTutorial.SetActive(false);
 	}
 	
 	
@@ -345,9 +345,8 @@ public class CutsceneTutorial : MonoBehaviour {
 			 timer = 38f;
 		 }
 		 if (colliders == finishTutorial.GetComponentInChildren<BoxCollider2D>())  {
-			DontDestroyOnLoad(personHeld);
 			DontDestroyOnLoad(InventoryHeld);
-            SceneManager.LoadScene("Hel");
+            SceneManager.LoadScene("Overworld");
 		 }
 
 		if(timer > 23.8 && timer < 24 && distance > -1) {

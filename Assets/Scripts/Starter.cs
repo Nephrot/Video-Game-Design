@@ -26,6 +26,7 @@ public class Starter : MonoBehaviour {
 
   float ButtonLasts = 0.5f; // Half a second before reset
   [SerializeField] public GameObject CharacterPanel;
+  
   [SerializeField] public EquipmentSlot equipmentSlot;
   [SerializeField] public Item item;
   // [SerializeField] public Collider2D collider2;
@@ -127,6 +128,9 @@ public class Starter : MonoBehaviour {
       canvas = CutsceneHel.terminalHeld;
       journal = CutsceneHel.journalHeld;
     }
+    if(CutsceneOverworld.CharacterPanelHeld != null) {
+      CharacterPanel = CutsceneOverworld.CharacterPanelHeld;
+    }
   }
   // Update is called once per frame
 
@@ -144,7 +148,7 @@ public class Starter : MonoBehaviour {
     if (move && !terminal) {
       rb.velocity = new Vector2 (Input.GetAxis ("Horizontal") * moveSpeed, Input.GetAxis ("Vertical") * moveSpeed);
     }
-    if (Input.GetMouseButton (0) && (movement.x != 0 || movement.y != 0) && equipmentSlot.Item == item && !terminal) {
+    if (Input.GetMouseButton (0) && (movement.x != 0 || movement.y != 0) &&  (equipmentSlot.Item == item || AiLich.switchCharacter == true) && !terminal) {
 
       SwitchAnimation ("Attack Walk Layer");
       RaycastHit hit;
@@ -155,7 +159,7 @@ public class Starter : MonoBehaviour {
           print ("My object is clicked by mouse");
         }
       }
-    } else if (Input.GetMouseButton (0) && equipmentSlot.Item == item && !terminal) {
+    } else if (Input.GetMouseButton (0) && (AiLich.switchCharacter == true) && !terminal) {
       SwitchAnimation ("Attack Idle Layer");
       RaycastHit hit;
       Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
